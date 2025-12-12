@@ -41,7 +41,6 @@ function TodoPage() {
     }
 
     useEffect(() => {
-        console.log('?????', todos)
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
