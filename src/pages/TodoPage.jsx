@@ -1,53 +1,16 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import TodoInput from '../components/TodoInput';
+import { useTodos } from '../hooks/useTodos';
 
 function TodoPage() {
-    const [todos, setTodo] = useState(() => {
-        try {
-          const raw = localStorage.getItem('todos');
-          if (!raw) return [];
-          const saved = JSON.parse(raw);
-          return Array.isArray(saved) ? saved : [];
-        } catch {
-          return [];
-        }
-      });
+    const { todos, addTodo, deleteTodo, toggleTodo } = useTodos();
     const [inputValue, setInputValue] = useState('');
 
-    const addTodo = () => {
-        console.log('입력값:', inputValue);
-        if (!inputValue.trim()) {
-            return;
-        }
-
-        const newTodo = {
-            id: Date.now(),
-            text: inputValue,
-            completed: false
-        };
-
-        setTodo([...todos, newTodo]);
-        setInputValue(''); // 입력창 초기화
-        
-    }
-
-    const deleteTodo = (id) => {
-        setTodo(todos.filter(todo => todo.id !== id));
-    }
-
-    const toggleTodo = (id) => {
-        setTodo(todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo));
-    }
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-      }, [todos]);
-      
+    const onAdd = () => {
+        addTodo(inputValue);
+        setInputValue('');
+    };
     return (
         <div>
             <h1>Todo List</h1>
@@ -58,7 +21,7 @@ function TodoPage() {
                 value={inputValue} 
                 onChange={(e) => setInputValue(e.target.value)} 
             />
-            <button onClick={addTodo}>추가</button>
+            <button onClick={onAdd}>추가</button>
 
             <ul style={{ listStyle: "none", padding: 0 }} >
                 {todos.map(item => (
@@ -72,7 +35,7 @@ function TodoPage() {
                         }
                     >
 
-                        <TodoInput item={item} onToggle={toggleTodo} />
+                        <TodoInput item={item} toggleTodo={toggleTodo} />
 
                         {item.text}
 
