@@ -17,13 +17,21 @@
 
 - npm: v10.9.2
 
-## 3. 폴더 구조 (현재)
+## 3. 폴더 구조 (현재) // version up 0.0.1 (2025.12.16)
 ``` css
     src/
-    ├─ pages/
-    │   └─ TodoPage.jsx
     ├─ components/
-    │   └─ TodoInput.jsx
+    │   └─ todo/
+    │       └─ TodoForm.jsx     // 입력 + 추가
+    │       └─ TodoItem.jsx     // map 렌더링
+    │       └─ TodoList.jsx     // checkbox + text + edit + delete
+    │   
+    ├─ hooks/
+    │   └─ useTodos.jsx         // todos 상태 + CRUD
+    │   
+    ├─ pages/
+    │   └─ TodoPage.jsx         // 페이지 조립 + 필터 상태
+    │   
     ├─ App.jsx
     └─ main.jsx
  ```
