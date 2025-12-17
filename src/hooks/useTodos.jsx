@@ -1,10 +1,20 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 export function useTodos() {
+
     const [todos, setTodos] = useState(() => {
-        const saved = localStorage.getItem('todos');
-        return saved ? JSON.parse(saved) : [];
+        try {
+            const raw = localStorage.getItem('todos');
+            const parsed = raw ? JSON.parse(raw) : [];
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            return [];
+        }
     });
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
 
     const addTodo = (text) => {
         if (!text.trim()) {
@@ -33,9 +43,6 @@ export function useTodos() {
         );
     };
 
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
   return {
       todos,
       addTodo,
