@@ -1,7 +1,7 @@
 import React from 'react'
 import TodoItem from './TodoItem'
 
-function TodoList({ todos, onToggle, onDelete }) {
+function TodoList({ todos, onToggle, onDelete, onUpdate }) {
   return (
     <div>
       {todos.map((item) => (
@@ -10,6 +10,7 @@ function TodoList({ todos, onToggle, onDelete }) {
             item={item}
             onToggle={onToggle}
             onDelete={onDelete}
+            onUpdate={onUpdate}
         />
       ))}
     </div>

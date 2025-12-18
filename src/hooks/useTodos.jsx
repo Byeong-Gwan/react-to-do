@@ -16,6 +16,7 @@ export function useTodos() {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
+    // 추가
     const addTodo = (text) => {
         if (!text.trim()) {
             return;
@@ -31,9 +32,23 @@ export function useTodos() {
         ]);
     };
 
+    // 삭제
     const deleteTodo = (id) => {
         setTodos(prev => prev.filter(todo => todo.id !== id));
     };
+
+    // 수정 
+    const updateTodo = (id, nextText) => {
+        const value = String(nextText ?? "").trim();
+        if (!value) {
+            return false;
+        }
+
+        setTodos((prev) => 
+            prev.map((todo) => (todo.id === id ? {...todo, text: value} : todo))
+        );
+        return true;
+    }
 
     const toggleTodo = (id) => {
         setTodos(prev => 
@@ -47,6 +62,7 @@ export function useTodos() {
       todos,
       addTodo,
       deleteTodo,
+      updateTodo,
       toggleTodo
   };
 }
