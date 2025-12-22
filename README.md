@@ -22,6 +22,7 @@
     src/
     ├─ components/
     │   └─ todo/
+    │       └─ TodoFilter.jsx     // 필터 추가
     │       └─ TodoForm.jsx     // 입력 + 추가
     │       └─ TodoItem.jsx     // map 렌더링
     │       └─ TodoList.jsx     // checkbox + text + edit + delete
