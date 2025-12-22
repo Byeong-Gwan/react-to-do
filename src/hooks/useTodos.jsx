@@ -1,19 +1,11 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
+import { loadTodos, saveTodos } from '../repositories/todoRepository';
 export function useTodos() {
 
-    const [todos, setTodos] = useState(() => {
-        try {
-            const raw = localStorage.getItem('todos');
-            const parsed = raw ? JSON.parse(raw) : [];
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-            return [];
-        }
-    });
+    const [todos, setTodos] = useState(() => loadTodos());
 
     useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
+        saveTodos(todos);
     }, [todos]);
 
     // 추가
@@ -25,7 +17,8 @@ export function useTodos() {
         setTodos(prev => [
             ...prev,
             {
-                id: Date.now(),
+                // timestamp + random 충돌 방지
+                id: Date.now() + Math.random(),
                 text,
                 completed: false
             }
@@ -58,11 +51,17 @@ export function useTodos() {
         );
     };
 
+    // filter 기능
+    const clearCompleted = () => {
+        setTodos((prev) => prev.filter((todo) => !todo.completed));
+    };
+
   return {
       todos,
       addTodo,
       deleteTodo,
       updateTodo,
-      toggleTodo
+      toggleTodo,
+      clearCompleted
   };
 }
