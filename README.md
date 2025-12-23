@@ -32,6 +32,9 @@
     │   
     ├─ pages/
     │   └─ TodoPage.jsx         // 페이지 조립 + 필터 상태
+    │
+    ├─ repositories/
+    │   └─ todoRepository.jsx         // LocalStorage 로직 분리 -> Supabase 교체 예정
     │   
     ├─ App.jsx
     └─ main.jsx
