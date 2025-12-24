@@ -32,26 +32,37 @@ function TodoPage() {
         todos.some((todo) => todo.completed)
     ), [todos]);
     return (
-        <div>
-            <h1>Todo List</h1>
+        <div className="min-h-screen flex justify-center px-4 py-14">
+        <div className="w-full max-w-xl">
+          <h1 className="text-center text-5xl font-extrabold tracking-tight mb-10">
+            Todo List
+          </h1>
+  
+          <div className="card p-5">
             <TodoForm onAdd={addTodo} />
-
-            <TodoFilter 
-                filter={filter}
-                onChange={setFilter}
-                leftCount={leftCount}
-                hasCompleted={hasCompleted}
-                onClearCompleted={clearCompleted}
+  
+            <TodoFilter
+              filter={filter}
+              onChange={setFilter}
+              leftCount={leftCount}
+              hasCompleted={hasCompleted}
+              onClearCompleted={clearCompleted}
             />
-
-            <TodoList 
-                todos={filteredTodos} 
-                onToggle={toggleTodo} 
-                onDelete={deleteTodo} 
-                onUpdate={updateTodo} 
+  
+            <TodoList
+              todos={filteredTodos}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onUpdate={updateTodo}
             />
+          </div>
+  
+          <p className="text-center text-xs text-zinc-500 mt-6">
+            LocalStorage 기반 Todo · 다음 단계: 로그인/서버 연동(Supabase)
+          </p>
         </div>
-    )
+      </div>
+    );
 }
 
 export default TodoPage
